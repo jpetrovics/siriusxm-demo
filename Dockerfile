@@ -2,6 +2,7 @@
 FROM gradle:8.4-jdk17 AS builder
 WORKDIR /src
 COPY . .
+RUN chmod +x ./gradlew && ./gradlew --no-daemon clean bootJar -x test
 RUN ./gradlew --no-daemon clean bootJar -x test
 
 # Stage 2: create custom JRE with jlink

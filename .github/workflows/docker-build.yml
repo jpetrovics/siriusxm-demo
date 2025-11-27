@@ -26,6 +26,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Build and push image
+      - name: Ensure gradlew is executable
+        run: chmod +x gradlew
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:

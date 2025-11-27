@@ -10,3 +10,5 @@ In GitHub → Settings → Secrets and variables → Actions:
 Add DOCKER_USERNAME (your Docker Hub username).
 Add DOCKER_PASSWORD (your Docker Hub access token or password).
 
+# 5 Change source and push new changes. On GitHub Action tab see the changes
+
