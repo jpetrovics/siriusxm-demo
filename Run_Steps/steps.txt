@@ -10,5 +10,10 @@ In GitHub → Settings → Secrets and variables → Actions:
 Add DOCKER_USERNAME (your Docker Hub username).
 Add DOCKER_PASSWORD (your Docker Hub access token or password).
 
-# 5 Change source and push new changes. On GitHub Action tab see the changes
+# 5 Change source and push new changes. On GitHub Action tab see the change
 
+#6 Go to https://hub.docker.com/repositories/jurijspe and see your repo built
+
+#7 pull it locally: 
+	docker pull jurijspe/chai-tunes:latest
+	docker run -p 8080:8080 jurijspe/chai-tunes:latest
