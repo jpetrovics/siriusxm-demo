@@ -1,0 +1,254 @@
+<mxfile host="app.diagrams.net" modified="2025-11-22T20:30:00.000Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="gK5fTj0_Iq0wVvG2R_Qe" version="24.7.4" type="embed">
+  <diagram id="2_R4Z5j9o3m5aB0c" name="Page-1">
+    <mxGraphModel dx="1434" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageEnabled="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Interfaces -->
+        <mxCell id="2" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;OrderProcessor&lt;/b&gt;" style="shape=umlInterface;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="&lt;&lt;interface&gt;&gt;&lt;br&gt;&lt;b&gt;ProcessingStep&lt;/b&gt;" style="shape=umlInterface;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="650" y="50" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Enums -->
+        <mxCell id="4" value="&lt;&lt;enum&gt;&gt;&lt;br&gt;&lt;b&gt;BeverageType&lt;/b&gt;&lt;hr&gt;- TEA&lt;br&gt;- COFFEE&lt;br&gt;- COLD_TEA&lt;br&gt;- COLD_COFFEE&lt;br&gt;- COLD_BEVERAGE" style="shape=umlEnum;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="120" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="&lt;&lt;enum&gt;&gt;&lt;br&gt;&lt;b&gt;OrderPriority&lt;/b&gt;&lt;hr&gt;- STANDARD&lt;br&gt;- HIGH" style="shape=umlEnum;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="50" y="450" width="120" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- DTOs -->
+        <mxCell id="6" value="&lt;b&gt;OrderRequest&lt;/b&gt;&lt;hr&gt;- id: String&lt;br&gt;- name: String&lt;br&gt;- description: String&lt;br&gt;- items: List&amp;lt;String&amp;gt;" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="150" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Model Classes -->
+        <mxCell id="7" value="&lt;b&gt;Ingredient&lt;/b&gt;&lt;hr&gt;- id: String&lt;br&gt;- name: String&lt;br&gt;- unitPrice: BigDecimal&lt;br&gt;- stock: int" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="250" width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="&lt;b&gt;RecipeStep&lt;/b&gt;&lt;hr&gt;- step: String&lt;br&gt;- order: int&lt;br&gt;- ingredientId: String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="400" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="&lt;b&gt;Recipe&lt;/b&gt;&lt;hr&gt;- ingredients: List&amp;lt;Ingredient&amp;gt;&lt;br&gt;- steps: Queue&amp;lt;RecipeStep&amp;gt;" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="450" y="300" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="&lt;b&gt;MenuItem&lt;/b&gt;&lt;hr&gt;- id: String&lt;br&gt;- name: String&lt;br&gt;- type: BeverageType&lt;br&gt;- description: String&lt;br&gt;- price: BigDecimal&lt;br&gt;- recipeId: String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="550" width="150" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="&lt;b&gt;Order&lt;/b&gt;&lt;hr&gt;- id: String&lt;br&gt;- name: String&lt;br&gt;- description: String&lt;br&gt;- items: List&amp;lt;MenuItem&amp;gt;&lt;br&gt;- createdAt: LocalDateTime&lt;br&gt;- priority: OrderPriority" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="650" width="150" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="&lt;b&gt;ProcessingResult&lt;/b&gt;&lt;hr&gt;- successful: boolean&lt;br&gt;- orderId: String&lt;br&gt;- processedAt: LocalDateTime&lt;br&gt;- messages: List&amp;lt;String&amp;gt;&lt;br&gt;- totalPrice: BigDecimal&lt;hr&gt;+ addMessage(String)&lt;br&gt;+ setSuccessful(boolean)&lt;br&gt;+ setTotalPrice(BigDecimal)" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="870" width="190" height="190" as="geometry" />
+        </mxCell>
+
+        <!-- Service Classes -->
+        <mxCell id="13" value="&lt;b&gt;MenuService&lt;/b&gt;&lt;hr&gt;- menuItemsByName: Map&amp;lt;String, MenuItem&amp;gt;&lt;br&gt;- ingredients: Map&amp;lt;String, Ingredient&amp;gt;&lt;br&gt;- recipes: Map&amp;lt;String, Recipe&amp;gt;&lt;hr&gt;+ getMenuItem(String): Optional&amp;lt;MenuItem&amp;gt;&lt;br&gt;+ getMenuItemByName(String): Optional&amp;lt;MenuItem&amp;gt;&lt;br&gt;+ getRecipe(String): Optional&amp;lt;Recipe&amp;gt;&lt;br&gt;+ getRecipeStepsForRecipe(String): Queue&amp;lt;RecipeStep&amp;gt;" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="250" y="750" width="250" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="&lt;b&gt;DefaultOrderProcessor&lt;/b&gt;&lt;hr&gt;- validationStep: ValidationStep&lt;br&gt;- inventoryCheckStep: InventoryCheckStep&lt;br&gt;- feeCalculationStep: FeeCalculationStep&lt;br&gt;- prepareBeverageStep: PrepareBeverageStep&lt;br&gt;- steps: List&amp;lt;ProcessingStep&amp;gt;&lt;hr&gt;+ process(Order): ProcessingResult" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="300" y="150" width="220" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- Controller -->
+        <mxCell id="15" value="&lt;b&gt;OrderController&lt;/b&gt;&lt;hr&gt;- orderProcessor: OrderProcessor&lt;br&gt;- menuService: MenuService&lt;hr&gt;+ processOrder(OrderRequest): ResponseEntity&amp;lt;ProcessingResult&amp;gt;" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="20" y="190" width="200" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Processing Steps -->
+        <mxCell id="16" value="&lt;b&gt;ValidationStep&lt;/b&gt;&lt;hr&gt;+ execute(Order): StepResult&lt;br&gt;+ getStepName(): String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="550" y="150" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="&lt;b&gt;InventoryCheckStep&lt;/b&gt;&lt;hr&gt;- menuService: MenuService&lt;hr&gt;+ execute(Order): StepResult&lt;br&gt;+ getStepName(): String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="550" y="250" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="&lt;b&gt;FeeCalculationStep&lt;/b&gt;&lt;hr&gt;- menuService: MenuService&lt;hr&gt;+ execute(Order): StepResult&lt;br&gt;+ getStepName(): String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="750" y="150" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="&lt;b&gt;PrepareBeverageStep&lt;/b&gt;&lt;hr&gt;- menuService: MenuService&lt;hr&gt;+ execute(Order): StepResult&lt;br&gt;+ getStepName(): String" style="shape=umlClass;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="750" y="270" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        <!-- OrderController uses OrderProcessor -->
+        <mxCell id="20" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="15" target="2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="80" as="sourcePoint" />
+            <mxPoint x="350" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- OrderController uses MenuService -->
+        <mxCell id="21" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="15" target="13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="320" as="sourcePoint" />
+            <mxPoint x="350" y="750" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="120" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- OrderController creates Order from OrderRequest -->
+        <mxCell id="22" value="creates" style="endArrow=classic;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="180" as="sourcePoint" />
+            <mxPoint x="120" y="650" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="220" y="80" />
+              <mxPoint x="220" y="735" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- DefaultOrderProcessor implements OrderProcessor -->
+        <mxCell id="23" value="" style="endArrow=block;html=1;endFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="14" target="2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="150" as="sourcePoint" />
+            <mxPoint x="410" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Processing Steps implement ProcessingStep -->
+        <mxCell id="24" value="" style="endArrow=block;html=1;endFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="16" target="3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="640" y="150" as="sourcePoint" />
+            <mxPoint x="710" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="25" value="" style="endArrow=block;html=1;endFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="17" target="3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="640" y="250" as="sourcePoint" />
+            <mxPoint x="710" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26" value="" style="endArrow=block;html=1;endFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="18" target="3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="840" y="150" as="sourcePoint" />
+            <mxPoint x="710" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="27" value="" style="endArrow=block;html=1;endFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="19" target="3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="840" y="270" as="sourcePoint" />
+            <mxPoint x="710" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- DefaultOrderProcessor uses Processing Steps -->
+        <mxCell id="28" value="uses" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="14" target="16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="250" as="sourcePoint" />
+            <mxPoint x="550" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="29" value="uses" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="14" target="17">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="250" as="sourcePoint" />
+            <mxPoint x="550" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="30" value="uses" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="14" target="18">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="250" as="sourcePoint" />
+            <mxPoint x="750" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="31" value="uses" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="14" target="19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="250" as="sourcePoint" />
+            <mxPoint x="750" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Processing Steps use MenuService -->
+        <mxCell id="32" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="17" target="13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="300" as="sourcePoint" />
+            <mxPoint x="500" y="850" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="730" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="18" target="13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="930" y="200" as="sourcePoint" />
+            <mxPoint x="500" y="850" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="930" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="34" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="19" target="13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="930" y="320" as="sourcePoint" />
+            <mxPoint x="500" y="850" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="930" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- MenuItem uses BeverageType -->
+        <mxCell id="35" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="10" target="4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="325" y="550" as="sourcePoint" />
+            <mxPoint x="110" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="325" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- MenuItem has recipeId to Recipe -->
+        <mxCell id="36" value="has recipeId" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="10" target="9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="625" as="sourcePoint" />
+            <mxPoint x="450" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Recipe has Ingredients -->
+        <mxCell id="37" value="contains" style="endArrow=classic;html=1;" edge="1" parent="1" source="9" target="7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="345" as="sourcePoint" />
+            <mxPoint x="325" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Recipe has RecipeSteps -->
+        <mxCell id="38" value="contains" style="endArrow=classic;html=1;" edge="1" parent="1" source="9" target="8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="345" as="sourcePoint" />
+            <mxPoint x="325" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- RecipeStep uses IngredientId -->
+        <mxCell id="39" value="refers to" style="endArrow=classic;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="8" target="7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="325" y="400" as="sourcePoint" />
+            <mxPoint x="325" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Order contains MenuItem -->
+        <mxCell id="40" value="contains" style="endArrow=classic;html=1;" edge="1" parent="1" source="11" target="10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="820" as="sourcePoint" />
+            <mxPoint x="325" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Order uses OrderPriority -->
+        <mxCell id="41" value="uses" style="endArrow=classic;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="11" target="5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="650" as="sourcePoint" />
+            <mxPoint x="110" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- ProcessingResult is returned -->
+        <mxCell id="42" value="returns" style="endArrow=classic;html=1;" edge="1" parent="1" source="14" target="12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="350" as="sourcePoint" />
+            <mxPoint x="145" y="870" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="410" y="965" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

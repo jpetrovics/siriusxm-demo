@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.siriusxm.demo.BeveragesShopApplicationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-26T15:38:27.200Z" hostname="DESKTOP-D3HKNFA" time="1.813">
+  <properties/>
+  <testcase name="testProcessStandardPriorityOrder()" classname="com.siriusxm.demo.BeveragesShopApplicationTests" time="1.76"/>
+  <testcase name="testProcessHighPriorityOrder()" classname="com.siriusxm.demo.BeveragesShopApplicationTests" time="0.044"/>
+  <testcase name="contextLoads()" classname="com.siriusxm.demo.BeveragesShopApplicationTests" time="0.007"/>
+  <system-out><![CDATA[15:38:18.934 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.siriusxm.demo.BeveragesShopApplicationTests]: BeveragesShopApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:38:19.252 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.siriusxm.demo.BeveragesShopApplication for test class com.siriusxm.demo.BeveragesShopApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.7)
+
+2025-11-26T15:38:20.237Z  INFO 21072 --- [Beverages Shop] [    Test worker] c.s.demo.BeveragesShopApplicationTests   : Starting BeveragesShopApplicationTests using Java 17.0.12 with PID 21072 (started by Jura in D:\Workspaces\Job_Interviews\SiriusXMDemo\chaiTunesServices)
+2025-11-26T15:38:20.238Z DEBUG 21072 --- [Beverages Shop] [    Test worker] c.s.demo.BeveragesShopApplicationTests   : Running with Spring Boot v3.5.7, Spring v6.2.12
+2025-11-26T15:38:20.239Z  INFO 21072 --- [Beverages Shop] [    Test worker] c.s.demo.BeveragesShopApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-11-26T15:38:21.584Z  INFO 21072 --- [Beverages Shop] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-26T15:38:21.640Z  INFO 21072 --- [Beverages Shop] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 0 JPA repository interfaces.
+2025-11-26T15:38:22.821Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2025-11-26T15:38:22.847Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-26T15:38:22.848Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+2025-11-26T15:38:22.964Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-26T15:38:22.966Z  INFO 21072 --- [Beverages Shop] [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2678 ms
+2025-11-26T15:38:23.415Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-26T15:38:23.588Z  INFO 21072 --- [Beverages Shop] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.33.Final
+2025-11-26T15:38:23.689Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-26T15:38:24.354Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-26T15:38:24.425Z  INFO 21072 --- [Beverages Shop] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-26T15:38:24.659Z  INFO 21072 --- [Beverages Shop] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-26T15:38:24.663Z  INFO 21072 --- [Beverages Shop] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-26T15:38:24.708Z  WARN 21072 --- [Beverages Shop] [    Test worker] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-11-26T15:38:24.716Z  WARN 21072 --- [Beverages Shop] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-26T15:38:24.757Z  INFO 21072 --- [Beverages Shop] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-26T15:38:25.349Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-26T15:38:25.355Z  INFO 21072 --- [Beverages Shop] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-26T15:38:25.436Z  WARN 21072 --- [Beverages Shop] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-26T15:38:26.731Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2025-11-26T15:38:27.175Z  INFO 21072 --- [Beverages Shop] [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 1369 (http) with context path '/'
+2025-11-26T15:38:27.187Z  INFO 21072 --- [Beverages Shop] [    Test worker] c.s.demo.BeveragesShopApplicationTests   : Started BeveragesShopApplicationTests in 7.604 seconds (process running for 9.848)
+2025-11-26T15:38:28.597Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-26T15:38:28.599Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-26T15:38:28.606Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2025-11-26T15:38:28.777Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.demo.controller.OrderController      : Received order request: OrderRequest(id=req1, name=Test Order, description=Sample order for testing, items=[Iced Latte, Green Tea], priority=STD)
+2025-11-26T15:38:28.782Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.demo.controller.OrderController      : Processing enriched order: Order(id=req1, name=Test Order, description=Sample order for testing, priority=STANDARD, subtotal=null, fee=null, items=[MenuItem(id=101, name=Iced Latte, type=COLD_COFFEE, description=Refreshing cold coffee with milk, price=3.50, recipeId=iced_latte_recipe), MenuItem(id=102, name=Green Tea, type=TEA, description=Hot and healthy green tea, price=2.75, recipeId=green_tea_recipe)], createdAt=2025-11-26T15:38:28.781401700)
+2025-11-26T15:38:28.791Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.imp.DefaultOrderProcessor  : Processing step: Validation
+2025-11-26T15:38:28.791Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.imp.DefaultOrderProcessor  : Processing step: Inventory Check
+2025-11-26T15:38:28.793Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.imp.DefaultOrderProcessor  : Processing step: Fee Calculation
+2025-11-26T15:38:28.794Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.imp.DefaultOrderProcessor  : Processing step: Prepare Beverage
+2025-11-26T15:38:28.794Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Making beverage: Iced Latte
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Brew espresso
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Add milk
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Add ice
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Stir
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Mix
+2025-11-26T15:38:28.795Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Making beverage: Green Tea
+2025-11-26T15:38:28.796Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Heat water
+2025-11-26T15:38:28.796Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Steep tea leaves
+2025-11-26T15:38:28.796Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.steps.PrepareBeverageStep  : Serve hot
+2025-11-26T15:38:28.796Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-1] c.s.d.service.imp.DefaultOrderProcessor  : Order processed successfully
+2025-11-26T15:38:28.968Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-2] c.s.demo.controller.OrderController      : Received order request: OrderRequest(id=req2, name=High Priority Test Order, description=Sample high priority order for testing, items=[Iced Latte, Green Tea], priority=HIGH)
+2025-11-26T15:38:28.968Z  INFO 21072 --- [Beverages Shop] [o-auto-1-exec-2] c.s.demo.controller.OrderController      : Processing enriched order: Order(id=req2, name=High Priority Test Order, description=Sample high priority order for testing, priority=HIGH, subtotal=null, fee=null, items=[MenuItem(id=101, name=Iced Latte, type=COLD_COFFEE, description=Refreshing cold coffee with milk, price=3.50, recipeId=iced_latte_recipe), MenuItem(id=102, name=Green Tea, type=TEA, description=Hot and healthy green tea, price=2.75, recipeId=green_tea_recipe)], createdAt=2025-11-26T15:38:28.968922300)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

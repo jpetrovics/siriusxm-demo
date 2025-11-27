@@ -1,0 +1,21 @@
+###
+
+GET http://localhost:8080/api/orders
+
+###
+
+POST http://localhost:8080/api/orders/process
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Test Order",
+  "description": "An order for some hot and cold beverages",
+  "priority": "STD",
+  "items": [
+    "Iced Latte",
+    "Green Tea"
+  ]
+}
+
+
