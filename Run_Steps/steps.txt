@@ -1,0 +1,12 @@
+#1 run jdeps to see what classes are need
+#2 update jlink in Dockerfile to use only dependencies which are needed
+
+	docker build -t my-app:jlink .
+
+#3 create .github/workflows/docker-build.yml
+#4 Update GitHub setting to include Repository Secrets
+
+In GitHub → Settings → Secrets and variables → Actions:
+Add DOCKER_USERNAME (your Docker Hub username).
+Add DOCKER_PASSWORD (your Docker Hub access token or password).
+

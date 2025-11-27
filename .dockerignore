@@ -1,0 +1,10 @@
+.gradle
+build
+out
+.gradle-cache
+.git
+.gitignore
+Dockerfile
+README.md
+*.iml
+.idea
