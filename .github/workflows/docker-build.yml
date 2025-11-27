@@ -1,0 +1,34 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches:
+      - main   # run only when merging/pushing to main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout your repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Docker Buildx (for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Log in to Docker Hub (or GHCR)
+      - name: Log in to Docker registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build and push image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/chai-tunes:latest
