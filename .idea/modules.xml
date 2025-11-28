@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chaiTunesServices.main.iml" filepath="$PROJECT_DIR$/.idea/modules/chaiTunesServices.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chaiTunesServices.test.iml" filepath="$PROJECT_DIR$/.idea/modules/chaiTunesServices.test.iml" />
     </modules>
   </component>
 </project>
