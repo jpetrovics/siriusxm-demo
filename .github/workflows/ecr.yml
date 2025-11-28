@@ -2,15 +2,26 @@ name: Push to ECR
 
 on:
   workflow_run:
-    workflows: ["Build Docker Image"]
+    workflows: ["Build Docker Image"]    # MUST match the 'name' in build.yml
     types: [completed]
+
+permissions:
+  actions: read   # required for cross-workflow artifact access
+  contents: read
 
 jobs:
   ecr:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Download image artifact from triggering workflow
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: Build Docker Image
+          run_id: ${{ github.event.workflow_run.id }}
+          name: docker-image
+          path: .
+          if_no_artifact_found: fail
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -19,20 +30,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: docker-image
-          path: .
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Load and push to ECR
         run: |
           docker load -i docker-image.tar
+
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           REGION=${{ secrets.AWS_REGION }}
           REPO=chai-tunes
           IMAGE_TAG=latest
           IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:${IMAGE_TAG}
 
+          echo "Tagging: ${IMAGE_URI}"
           docker tag chai-tunes:latest ${IMAGE_URI}
+
+          echo "Pushing: ${IMAGE_URI}"
           docker push ${IMAGE_URI}
