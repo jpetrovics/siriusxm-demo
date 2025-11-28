@@ -1,12 +1,12 @@
-name: Push to ECR
+name: Push to ECR Public
 
 on:
   workflow_run:
-    workflows: ["Build Docker Image"] # MUST match the 'name' in build.yml
+    workflows: ["Build Docker Image"]   # must match build.yml name
     types: [completed]
 
 permissions:
-  actions: read   # required for cross-workflow artifact access
+  actions: read
   contents: read
 
 jobs:
@@ -14,34 +14,35 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Download image artifact from triggering workflow
+      - name: Download image artifact
         uses: dawidd6/action-download-artifact@v3
         with:
           workflow: Build Docker Image
           run_id: ${{ github.event.workflow_run.id }}
           name: docker-image
           path: .
-          if_no_artifact_found: fail
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1   # ECR Public is only in us-east-1
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+      - name: Login to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 \
+            | docker login --username AWS --password-stdin public.ecr.aws
 
-      - name: Load and push to ECR
+      - name: Load and push to ECR Public
         run: |
           docker load -i docker-image.tar
 
-          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-          REGION=${{ secrets.AWS_REGION }}
+          # Replace <namespace> with your public ECR namespace
+          NAMESPACE=public.ecr.aws/m9b5b5z1/chai-tunes
           REPO=chai-tunes
           IMAGE_TAG=latest
-          IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:${IMAGE_TAG}
+          IMAGE_URI=public.ecr.aws/${NAMESPACE}/${REPO}:${IMAGE_TAG}
 
           echo "Tagging: ${IMAGE_URI}"
           docker tag chai-tunes:latest ${IMAGE_URI}
