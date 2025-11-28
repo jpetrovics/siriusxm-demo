@@ -1,15 +1,16 @@
-name: Build and Push to ECR
+name: Push to ECR
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["Build Docker Image"]   # 👈 waits for build.yml
+    types:
+      - completed
 
 jobs:
   ecr:
     runs-on: ubuntu-latest
-    needs: docker   # 👈 ensures this runs after docker
     steps:
-      - name: Checkout source
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -19,19 +20,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      - name: Download image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
 
-      - name: Build, tag, and push image
+      - name: Load and push to ECR
         run: |
+          docker load -i /tmp/docker-image.tar
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           REGION=${{ secrets.AWS_REGION }}
-          REPO=jurijspe/chai-tunes
+          REPO=chai-tunes
           IMAGE_TAG=latest
           IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:${IMAGE_TAG}
 
-          echo "Building image: $IMAGE_URI"
-          docker build -t ${REPO}:${IMAGE_TAG} .
-          docker tag ${REPO}:${IMAGE_TAG} ${IMAGE_URI}
+          docker tag chai-tunes:latest ${IMAGE_URI}
           docker push ${IMAGE_URI}
