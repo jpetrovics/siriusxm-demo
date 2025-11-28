@@ -39,7 +39,7 @@ jobs:
           docker load -i docker-image.tar
 
           # Replace <namespace> with your public ECR namespace
-          NAMESPACE=public.ecr.aws/m9b5b5z1/chai-tunes
+          NAMESPACE=m9b5b5z1
           REPO=chai-tunes
           IMAGE_TAG=latest
           IMAGE_URI=public.ecr.aws/${NAMESPACE}/${REPO}:${IMAGE_TAG}
