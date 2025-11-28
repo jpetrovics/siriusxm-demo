@@ -2,7 +2,7 @@ name: Push to ECR
 
 on:
   workflow_run:
-    workflows: ["Build Docker Image"]    # MUST match the 'name' in build.yml
+    workflows: ["Build Docker Image"] # MUST match the 'name' in build.yml
     types: [completed]
 
 permissions:
