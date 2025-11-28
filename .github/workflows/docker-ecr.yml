@@ -7,7 +7,7 @@ on:
 jobs:
   ecr:
     runs-on: ubuntu-latest
-
+    needs: docker   # 👈 ensures this runs after docker
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
         run: |
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           REGION=${{ secrets.AWS_REGION }}
-          REPO=chai-tunes
+          REPO=jurijspe/chai-tunes
           IMAGE_TAG=latest
           IMAGE_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO}:${IMAGE_TAG}
 
