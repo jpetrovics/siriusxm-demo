@@ -2,9 +2,8 @@ name: Push to ECR
 
 on:
   workflow_run:
-    workflows: ["Build Docker Image"]   # 👈 waits for build.yml
-    types:
-      - completed
+    workflows: ["Build Docker Image"]
+    types: [completed]
 
 jobs:
   ecr:
@@ -20,15 +19,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Download image artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: docker-image
-          path: /tmp
+          path: .
 
       - name: Load and push to ECR
         run: |
-          docker load -i /tmp/docker-image.tar
+          docker load -i docker-image.tar
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           REGION=${{ secrets.AWS_REGION }}
           REPO=chai-tunes

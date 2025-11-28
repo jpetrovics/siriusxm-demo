@@ -14,12 +14,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t chai-tunes .
 
-      - name: Save image as artifact
-        run: |
-          docker save chai-tunes -o /tmp/docker-image.tar
-        # 👆 run must be inside a step
+      - name: Save image as tarball
+        run: docker save chai-tunes -o docker-image.tar
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
-          path: /tmp/docker-image.tar
+          path: docker-image.tar
