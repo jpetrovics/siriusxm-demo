@@ -1,25 +1,47 @@
+# This is the name of the GitHub Actions workflow.
+# It will be displayed in the Actions tab of the GitHub repository.
 name: Build Docker Image
 
+# This section defines the trigger for the workflow.
+# In this case, the workflow will run on every push to the 'main' branch.
 on:
   push:
     branches: [ main ]
 
+# This section defines the jobs that will be executed in the workflow.
 jobs:
+  # This is the name of the job. You can have multiple jobs in a workflow.
   build:
+    # This specifies the runner environment for the job.
+    # 'ubuntu-latest' means the job will run on the latest version of Ubuntu.
     runs-on: ubuntu-latest
+    
+    # This section defines the steps that will be executed in the 'build' job.
     steps:
+      # This step checks out the source code of the repository.
+      # It uses a pre-built action 'actions/checkout@v4'.
       - name: Checkout source
         uses: actions/checkout@v4
 
+      # This step builds the Docker image.
+      # It uses the 'docker build' command to build the image and tags it as 'chai-tunes'.
       - name: Build Docker image
         run: docker build -t chai-tunes .
 
+      # This step saves the built Docker image as a tarball.
+      # The 'docker save' command is used to create a tar archive of the image.
       - name: Save image as tarball
         run: docker save chai-tunes -o docker-image.tar
 
+      # This step uploads the Docker image tarball as a workflow artifact.
+      # This allows the image to be downloaded and used in other jobs or workflows.
+      # It uses the 'actions/upload-artifact@v4' action.
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
+          # The name of the artifact to be uploaded.
           name: docker-image
+          # The path to the file or directory to be uploaded.
           path: docker-image.tar
+          # This option ensures that the workflow will fail if the artifact file is not found.
           if-no-files-found: error

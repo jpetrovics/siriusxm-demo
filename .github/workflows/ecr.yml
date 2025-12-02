@@ -1,51 +1,84 @@
+# This is the name of the GitHub Actions workflow.
+# It will be displayed in the Actions tab of the GitHub repository.
 name: Push to ECR Public
 
+# This section defines the trigger for the workflow.
+# 'workflow_run' means this workflow is triggered by the completion of another workflow.
 on:
   workflow_run:
-    workflows: ["Build Docker Image"]   # must match build.yml name
+    # This specifies the name of the workflow that triggers this one.
+    # It must match the 'name' of the build.yml workflow.
+    workflows: ["Build Docker Image"]
+    # This specifies that the workflow should run only when the triggering workflow has completed.
     types: [completed]
 
+# This section defines the permissions granted to the GitHub token for this workflow.
 permissions:
+  # Grants read access to actions to read workflow run artifacts.
   actions: read
+  # Grants read access to the repository contents.
   contents: read
 
+# This section defines the jobs that will be executed in the workflow.
 jobs:
+  # This is the name of the job.
   ecr:
+    # This specifies the runner environment for the job.
     runs-on: ubuntu-latest
+    # This condition ensures that this job only runs if the triggering workflow was successful.
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    # This section defines the steps that will be executed in the 'ecr' job.
     steps:
+      # This step downloads the Docker image artifact that was uploaded by the 'Build Docker Image' workflow.
       - name: Download image artifact
         uses: dawidd6/action-download-artifact@v3
         with:
+          # The name of the workflow from which to download the artifact.
           workflow: Build Docker Image
+          # The ID of the specific run of the triggering workflow.
           run_id: ${{ github.event.workflow_run.id }}
+          # The name of the artifact to download.
           name: docker-image
+          # The path where the artifact should be downloaded.
           path: .
 
+      # This step configures AWS credentials for the runner.
+      # It uses the 'aws-actions/configure-aws-credentials' action.
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
+          # These secrets should be configured in the GitHub repository settings.
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1   # ECR Public is only in us-east-1
+          # ECR Public is a global service, but the API endpoint is in us-east-1.
+          aws-region: us-east-1
 
+      # This step logs into Amazon ECR Public.
       - name: Login to Amazon ECR Public
         run: |
+          # The 'aws ecr-public get-login-password' command retrieves an authentication token.
+          # This token is then piped to 'docker login' to authenticate with ECR Public.
           aws ecr-public get-login-password --region us-east-1 \
             | docker login --username AWS --password-stdin public.ecr.aws
 
+      # This step loads the Docker image from the downloaded tarball and pushes it to ECR Public.
       - name: Load and push to ECR Public
         run: |
+          # Load the Docker image from the tar archive.
           docker load -i docker-image.tar
 
-          # Replace <namespace> with your public ECR namespace
+          # Define variables for the ECR Public namespace, repository name, and image tag.
+          # IMPORTANT: Replace <namespace> with your actual public ECR namespace.
           NAMESPACE=m9b5b5z1
           REPO=chai-tunes
           IMAGE_TAG=latest
           IMAGE_URI=public.ecr.aws/${NAMESPACE}/${REPO}:${IMAGE_TAG}
 
+          # Tag the loaded Docker image with the ECR repository URI.
           echo "Tagging: ${IMAGE_URI}"
           docker tag chai-tunes:latest ${IMAGE_URI}
 
+          # Push the tagged image to the ECR Public repository.
           echo "Pushing: ${IMAGE_URI}"
           docker push ${IMAGE_URI}
